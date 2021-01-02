@@ -16,7 +16,7 @@ trait PaginatedRepositoryTrait
             $params->getPage(),
             $params->getPerPage(),
             $params->getCriteria(),
-            [$params->getSort() => "ASC"],
+            $params->getOrderBy(),
             $params->getHydrateMode()
         );
     }
@@ -46,7 +46,7 @@ trait PaginatedRepositoryTrait
             $total = count($results) < $per_page && $page == 1 ? count($results) : $this->countBy($criteria);
         }
 
-        return new PaginatedArrayCollection($results, $page, $per_page, $total);
+        return new PaginatedArrayCollection($results, $page, $per_page, $total, $criteria, $orderBy);
     }
 
     public function countBy(?array $criteria = []): int
