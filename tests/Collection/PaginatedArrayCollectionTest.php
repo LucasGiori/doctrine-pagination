@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 class PaginatedArrayCollectionTest extends TestCase
 {
-    public function collectionProvider()
+    public function collectionProvider(): array
     {
         return [
             [[], 1, 10, 100, 10],

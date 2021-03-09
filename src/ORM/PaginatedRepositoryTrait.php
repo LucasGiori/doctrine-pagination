@@ -10,6 +10,10 @@ use DoctrinePagination\DTO\Params;
 
 trait PaginatedRepositoryTrait
 {
+    /**
+     * @param Params|null $params
+     * @return PaginatedArrayCollection
+     */
     public function findPageWithDTO(?Params $params): PaginatedArrayCollection
     {
         return $this->findPageBy(
@@ -21,6 +25,14 @@ trait PaginatedRepositoryTrait
         );
     }
 
+    /**
+     * @param int|null $page
+     * @param int|null $per_page
+     * @param array|null $criteria
+     * @param array|null $orderBy
+     * @param int|null $hydrateMode
+     * @return PaginatedArrayCollection
+     */
     public function findPageBy(
         ?int $page = 1,
         ?int $per_page = 20,
@@ -49,6 +61,10 @@ trait PaginatedRepositoryTrait
         return new PaginatedArrayCollection($results, $page, $per_page, $total, $criteria, $orderBy);
     }
 
+    /**
+     * @param array|null $criteria
+     * @return int
+     */
     public function countBy(?array $criteria = []): int
     {
         try {
@@ -61,6 +77,12 @@ trait PaginatedRepositoryTrait
         }
     }
 
+    /**
+     * @param array $criteria
+     * @param string|null $indexBy
+     * @param array|null $orderBy
+     * @return PaginatedQueryBuilder
+     */
     protected function createPaginatedQueryBuilder(
         array $criteria = [], ?string $indexBy = null, ?array $orderBy = null
     ): PaginatedQueryBuilder
@@ -77,6 +99,10 @@ trait PaginatedRepositoryTrait
         return $qb;
     }
 
+    /**
+     * @param PaginatedQueryBuilder $qb
+     * @param array $criteria
+     */
     protected function processCriteria(PaginatedQueryBuilder $qb, array $criteria): void
     {
         if ($this instanceof FilterRepositoryInterface) {
@@ -99,6 +125,10 @@ trait PaginatedRepositoryTrait
         }
     }
 
+    /**
+     * @param PaginatedQueryBuilder $qb
+     * @param array|null $orderBy
+     */
     protected function processOrderBy(PaginatedQueryBuilder $qb, ?array $orderBy = null): void
     {
         if (is_array($orderBy)) {
@@ -106,6 +136,9 @@ trait PaginatedRepositoryTrait
         }
     }
 
+    /**
+     * @return string
+     */
     protected function getEntityAlias(): string
     {
         $entityName = explode('\\', $this->_entityName);

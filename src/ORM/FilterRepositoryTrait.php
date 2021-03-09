@@ -6,6 +6,10 @@ use Doctrine\ORM\QueryBuilder;
 
 trait FilterRepositoryTrait
 {
+    /**
+     * @param QueryBuilder $qb
+     * @param array $criteria
+     */
     public function buildFilterCriteria(QueryBuilder $qb, array $criteria): void
     {
         foreach ($criteria as $field => $value) {
@@ -13,6 +17,11 @@ trait FilterRepositoryTrait
         }
     }
 
+    /**
+     * @param QueryBuilder $qb
+     * @param string $field
+     * @param $value
+     */
     protected function filterField(QueryBuilder $qb, string $field, $value): void
     {
         list ($fieldName, $operatorName) = $this->splitFieldName($field);
@@ -54,6 +63,10 @@ trait FilterRepositoryTrait
         $qb->setParameter($fieldParameter, $value);
     }
 
+    /**
+     * @param string $field
+     * @return array
+     */
     private function splitFieldName(string $field): array
     {
         $parts = explode('_', $field);

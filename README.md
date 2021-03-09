@@ -1,5 +1,5 @@
 
-[![Minimum PHP Version](https://img.shields.io/badge/php-%5E7.4-blue)](https://php.net/)
+[![Minimum PHP Version](https://img.shields.io/badge/php-%5E7.1-blue)](https://php.net/)
 [![Latest Stable Version](https://poser.pugx.org/kadudutra/doctrine-pagination/v/stable.svg)](https://packagist.org/packages/kadudutra/doctrine-pagination)
 [![Latest Unstable Version](https://poser.pugx.org/kadudutra/doctrine-pagination/v/unstable.svg)](https://packagist.org/packages/kadudutra/doctrine-pagination)
 [![License](https://poser.pugx.org/kadudutra/doctrine-pagination/license.svg)](https://packagist.org/packages/kadudutra/doctrine-pagination)
