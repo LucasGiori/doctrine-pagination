@@ -6,6 +6,13 @@ use DoctrinePagination\Collection\PaginatedArrayCollection;
 
 trait PaginatedRepositoryFindByTrait
 {
+    /**
+     * @param array|null $criteria
+     * @param array|null $orderBy
+     * @param int|null $limit
+     * @param int|null $offset
+     * @return PaginatedArrayCollection
+     */
     public function findByPaginate(
         ?array $criteria = [], ?array $orderBy = null, ?int $limit = null, ?int $offset = null
     ): PaginatedArrayCollection

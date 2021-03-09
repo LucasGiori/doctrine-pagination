@@ -6,23 +6,50 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 class PaginatedArrayCollection
 {
-    protected ?int $total;
+    /**
+     * @var int|null
+     */
+    protected $total;
 
-    protected ?int $last_page;
+    /**
+     * @var int|null
+     */
+    protected $last_page;
 
-    protected ?int $per_page;
+    /**
+     * @var int|null
+     */
+    protected $per_page;
 
-    protected ?int $current_page;
+    /**
+     * @var int|null
+     */
+    protected $current_page;
 
-    protected ?string $next_page_url;
+    /**
+     * @var string|null
+     */
+    protected  $next_page_url;
 
-    protected ?string $prev_page_url;
+    /**
+     * @var string|null
+     */
+    protected  $prev_page_url;
 
-    protected ?array $criteria = [];
+    /**
+     * @var array|null
+     */
+    protected  $criteria = [];
 
-    protected ?array $orderBy = [];
+    /**
+     * @var array|null
+     */
+    protected $orderBy = [];
 
-    protected ?ArrayCollection $data = null;
+    /**
+     * @var ArrayCollection|null
+     */
+    protected $data = null;
 
     public function __construct(
         array $elements = [],
@@ -49,11 +76,17 @@ class PaginatedArrayCollection
         $this->orderBy = null;
     }
 
+    /**
+     * @return int|null
+     */
     public function getTotal(): ?int
     {
         return $this->total;
     }
 
+    /**
+     * @return int|null
+     */
     public function getLastPage(): ?int
     {
         if (!$this->getPerPage()) {
@@ -69,16 +102,25 @@ class PaginatedArrayCollection
         return $this->last_page;
     }
 
+    /**
+     * @return int|null
+     */
     public function getPerPage(): ?int
     {
         return $this->per_page;
     }
 
+    /**
+     * @return int|null
+     */
     public function getCurrentPage(): ?int
     {
         return $this->current_page;
     }
 
+    /**
+     * @return string|null
+     */
     public function getNextPageUrl(): ?string
     {
         $this->next_page_url = $this->mountUrl($this->getCurrentPage() + 1);
@@ -86,6 +128,9 @@ class PaginatedArrayCollection
         return $this->next_page_url;
     }
 
+    /**
+     * @return string|null
+     */
     public function getPrevPageUrl(): ?string
     {
         $this->prev_page_url = $this->mountUrl($this->getCurrentPage() - 1);
@@ -93,28 +138,46 @@ class PaginatedArrayCollection
         return $this->prev_page_url;
     }
 
+    /**
+     * @return array|null
+     */
     public function getCriteria(): ?array
     {
         return $this->criteria;
     }
 
+    /**
+     * @param array|null $criteria
+     * @return $this
+     */
     public function setCriteria(?array $criteria): PaginatedArrayCollection
     {
         $this->criteria = $criteria;
         return $this;
     }
 
+    /**
+     * @return array|null
+     */
     public function getOrderBy(): ?array
     {
         return $this->orderBy;
     }
 
+    /**
+     * @param array|null $orderBy
+     * @return $this
+     */
     public function setOrderBy(?array $orderBy): PaginatedArrayCollection
     {
         $this->orderBy = $orderBy;
         return $this;
     }
 
+    /**
+     * @param int $page
+     * @return string
+     */
     private function mountUrl(int $page): string
     {
         $order = '';

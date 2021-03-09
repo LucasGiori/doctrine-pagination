@@ -6,6 +6,11 @@ use Doctrine\ORM\QueryBuilder;
 
 class PaginatedQueryBuilder extends QueryBuilder
 {
+    /**
+     * @param array $orderBy
+     * @param null $entityAlias
+     * @return $this
+     */
     public function addOrder(array $orderBy, $entityAlias = null): PaginatedQueryBuilder
     {
         foreach ($orderBy as $field => $order) {
@@ -19,6 +24,11 @@ class PaginatedQueryBuilder extends QueryBuilder
         return $this;
     }
 
+    /**
+     * @param int $page
+     * @param int $per_page
+     * @return $this
+     */
     public function addPagination(int $page, int $per_page): PaginatedQueryBuilder
     {
         $offset = ($page - 1) * $per_page;
