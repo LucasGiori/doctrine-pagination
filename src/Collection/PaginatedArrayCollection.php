@@ -211,4 +211,12 @@ class PaginatedArrayCollection
 
         return sprintf("?page=%s&per_page=%s%s%s", $page, $this->getPerPage(), $order, $criteria);
     }
+
+    /**
+     * @return array
+     */
+    public function jsonSerialize()
+    {
+        return get_object_vars($this);
+    }
 }
