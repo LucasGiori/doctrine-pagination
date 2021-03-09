@@ -3,7 +3,7 @@
 namespace DoctrinePagination\ORM;
 
 use Doctrine\ORM\AbstractQuery;
-use Doctrine\Persistence\ObjectRepository;
+use Doctrine\Common\Persistence\ObjectRepository;
 use DoctrinePagination\Collection\PaginatedArrayCollection;
 use DoctrinePagination\DTO\Params;
 
