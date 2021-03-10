@@ -114,7 +114,12 @@ trait PaginatedRepositoryTrait
                 if (is_null($value)) {
                     $qb->andWhere(sprintf('%s.%s IS NULL', $this->getEntityAlias(), $field));
                 } elseif (is_array($value) && in_array(strtoupper($value[0]), ["LIKE", "ILIKE"])) {
-                    $qb->andWhere($qb->expr()->like(sprintf('%s.%s', $this->getEntityAlias(), $field), $qb->expr()->literal($value[1] . '%')));
+                    $qb->andWhere(
+                        $qb->expr()->like(
+                            sprintf('LOWER(%s.%s)',  $this->getEntityAlias(), $field),
+                            $qb->expr()->literal(strtolower($value[1]) . '%')
+                        )
+                    );
                 } elseif (is_array($value)) {
                     $qb->andWhere($qb->expr()->in(sprintf('%s.%s', $this->getEntityAlias(), $field), $value));
                 } else {
