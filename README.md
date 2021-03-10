@@ -14,7 +14,7 @@ This library provides a paginated repository and collection for Doctrine.
 Open a command console, enter your project directory and execute:
 
 ```console
-$ composer require kadudutra/doctrine-pagination
+$ composer require lucasgiori/doctrine-pagination
 ```
 
 # Configure Repository
@@ -93,6 +93,40 @@ protected function processCriteria(PaginatedQueryBuilder $qb, array $criteria)
     }
 
     parent::processCriteria($qb, $criteria);
+}
+```
+
+Parameter DTO to facilitate data searches:
+
+```php
+use Doctrine\ORM\Query;
+use DoctrinePagination\DTO\Params;
+
+$params = (new Params())
+                ->setCriteria(["field" => "teste"]) // Array the fields and values to apply filter in sql
+                ->setPage(1) // Page of query data
+                ->setPerPage(10) // Quantity per page
+                ->setHydrateMode(Query::HYDRATE_ARRAY) //Result handling mode
+                ->setSearchField("nome") // Search Field define field to apply `like` of sql
+                ->setSearch("gazin"); // Field Value  apply `like` in sql
+
+
+
+```
+
+Class that performs the search of data consuming DTO and return PaginatedArrayCollention;
+
+```php
+use DoctrinePagination\ORM\PaginatedRepository;
+use DoctrinePagination\DTO\Params;
+
+class Example extends PaginatedRepository {
+
+
+    public function findWithFilter(Params $params): ?PaginatedArrayCollection
+    {
+        return $this->findPageWithDTO($params);
+    }
 }
 ```
 
