@@ -191,25 +191,23 @@ class PaginatedArrayCollection
 
         if (!empty($this->criteria)) {
             foreach ($this->criteria as $key => $data) {
-                // @TODO se precisar enviar idcompany como atributo será necessário remover
-                if ($key === "idcompany") {
-                    continue;
+                if (!is_array($data)) {
+                    $param = sprintf("&%s=%s", $key, $data);
+                } else {
+                    $param = sprintf("&search=%s&search_field=%s", $data[1] ?? $data, $key);
                 }
-                $criteria .= sprintf("&search=%s&search_field=%s", $data[1] ?? $data, $key);
+
+                $criteria .= $param;
             }
         }
 
         if (!empty($this->orderBy)) {
             foreach ($this->orderBy as $key => $data) {
-                // @TODO se precisar enviar idcompany como atributo será necessário remover
-                if ($key === "idcompany") {
-                    continue;
-                }
                 $order .= sprintf("&sort=%s&order=%s", $key, $data);
             }
         }
 
-        return sprintf("?page=%s&per_page=%s%s%s", $page, $this->getPerPage(), $order, $criteria);
+        return sprintf("?page=%s&limit=%s%s%s", $page, $this->getPerPage(), $order, $criteria);
     }
 
     /**
